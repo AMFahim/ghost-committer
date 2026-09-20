@@ -1,0 +1,14 @@
+---
+description: Never add AI attribution to git commits or pull requests
+alwaysApply: true
+---
+
+When creating or amending a git commit, or creating/updating a pull request, never add
+AI attribution: no `Co-authored-by` trailer naming Claude, Cursor, Copilot or Codex, no
+"Generated with Claude Code" or "Made with Cursor" footer, and no `Made-with:`,
+`Claude-Session:` or `Agent-Logs-Url:` trailer. Keep `Co-authored-by` lines for real
+human collaborators.
+
+After every commit, run
+`git log -1 --format=%B | grep -n -i -E '^(co-authored-by|generated[- ]with|claude-session|made-with|agent-logs-url)'`
+and, if it finds an AI-attribution line, amend the commit to remove it before finishing.

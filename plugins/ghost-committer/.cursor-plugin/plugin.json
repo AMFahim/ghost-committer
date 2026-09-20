@@ -1,0 +1,12 @@
+{
+  "name": "ghost-committer",
+  "version": "1.0.0",
+  "description": "Keeps git commits and PRs free of AI attribution trailers (Co-Authored-By, Generated with Claude Code, Claude-Session)",
+  "author": {
+    "name": "Abdul Mozid Fahim"
+  },
+  "license": "MIT",
+  "keywords": ["git", "commit", "attribution", "co-authored-by"],
+  "skills": "skills/",
+  "rules": "rules/"
+}

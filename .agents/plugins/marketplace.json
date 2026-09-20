@@ -1,0 +1,20 @@
+{
+  "name": "ghost-committer-marketplace",
+  "interface": {
+    "displayName": "Ghost Committer Marketplace"
+  },
+  "plugins": [
+    {
+      "name": "ghost-committer",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ghost-committer"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

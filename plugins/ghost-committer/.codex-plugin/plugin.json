@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ghost-committer",
+  "version": "1.0.0",
+  "description": "Keeps git commits and PRs free of AI attribution trailers (Co-Authored-By, Generated with Claude Code, Claude-Session)",
+  "author": {
+    "name": "Abdul Mozid Fahim"
+  },
+  "license": "MIT"
+}
