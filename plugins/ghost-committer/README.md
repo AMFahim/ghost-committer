@@ -25,7 +25,9 @@ Code's built-in `includeCoAuthoredBy` setting, which is unreliable in some cases
 ## Optional: git hook
 
 For a hard guarantee, install the `commit-msg` hook in a repo (from the repo root,
-adjusting the source path as needed):
+adjusting the source path as needed). Besides Claude Code's lines, it also strips the
+trailers added by Cursor, GitHub Copilot and OpenAI Codex, and works for any tool that
+commits through git. Human `Co-authored-by` lines are kept.
 
 ```sh
 cp scripts/commit-msg-hook.sh .git/hooks/commit-msg && chmod +x .git/hooks/commit-msg

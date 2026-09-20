@@ -42,8 +42,18 @@ cp scripts/commit-msg-hook.sh .git/hooks/commit-msg && chmod +x .git/hooks/commi
 
 Run this from the repo root, and adjust the source path to the script's location
 (in this marketplace: `plugins/ghost-committer/scripts/commit-msg-hook.sh`). The hook
-is POSIX `sh` and removes lines matching `Co-Authored-By: Claude`,
-`Generated with [Claude Code]`, and `Claude-Session:`.
+is POSIX `sh` and removes these AI-attribution lines (case-insensitive):
+
+| Tool | Lines removed |
+|---|---|
+| Claude Code | `Co-Authored-By: Claude ...`, `Generated with [Claude Code]`, `Claude-Session:` |
+| Cursor | `Co-authored-by: Cursor <cursoragent@cursor.com>`, `Made-with: Cursor` |
+| GitHub Copilot | `Co-authored-by: Copilot <...@users.noreply.github.com>`, `Agent-Logs-Url:` |
+| OpenAI Codex | `Co-authored-by: Codex <noreply@openai.com>` |
+
+Co-authored-by lines for real people are left alone. Because it is a plain git hook, it
+also works when those other tools make the commit, unless they bypass hooks with
+`--no-verify`. It only edits commit messages, not PR titles or descriptions.
 
 ## Layout
 

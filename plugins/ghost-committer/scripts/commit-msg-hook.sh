@@ -3,9 +3,13 @@
 #
 # Strips AI-attribution lines from the commit message file passed as $1
 # before the commit is finalized:
-#   - "Co-Authored-By: Claude ..." (and any Co-Authored-By naming noreply@anthropic.com)
-#   - "Generated with [Claude Code]" (e.g. the robot-emoji footer)
-#   - "Claude-Session:" trailers
+#   Claude Code: "Co-Authored-By: Claude ..." (or <noreply@anthropic.com>),
+#                "Generated with [Claude Code]", "Claude-Session:"
+#   Cursor:      "Co-authored-by: Cursor <cursoragent@cursor.com>", "Made-with: Cursor"
+#   Copilot:     "Co-authored-by: Copilot <...+Copilot@users.noreply.github.com>",
+#                "Agent-Logs-Url:"
+#   Codex:       "Co-authored-by: Codex <noreply@openai.com>"
+# Co-authored-by lines for human collaborators are left alone.
 #
 # Install (run from the repo root; adjust the source path to wherever this script lives):
 #   cp scripts/commit-msg-hook.sh .git/hooks/commit-msg && chmod +x .git/hooks/commit-msg
@@ -23,10 +27,12 @@ trap 'rm -f "$tmp_file"' EXIT HUP INT TERM
 
 # grep -v exits 1 when every line was removed; that is not an error here.
 grep -v -i -E \
-    -e '^[[:space:]]*co-authored-by:[[:space:]]*claude' \
-    -e '^[[:space:]]*co-authored-by:.*<noreply@anthropic\.com>' \
+    -e '^[[:space:]]*co-authored-by:[[:space:]]*(claude|cursor|copilot|codex)([[:space:]]*<|[[:space:]]*$)' \
+    -e '^[[:space:]]*co-authored-by:.*<(noreply@anthropic\.com|cursoragent@cursor\.com|noreply@openai\.com|[^>]*copilot@users\.noreply\.github\.com)>' \
     -e 'generated with[[:space:]]+\[?claude code\]?' \
     -e '^[[:space:]]*claude-session:' \
+    -e '^[[:space:]]*made-with:[[:space:]]*cursor' \
+    -e '^[[:space:]]*agent-logs-url:' \
     "$msg_file" > "$tmp_file"
 
 # Only overwrite when something was actually stripped (keeps the file untouched otherwise).
