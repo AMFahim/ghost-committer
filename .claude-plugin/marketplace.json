@@ -1,0 +1,14 @@
+{
+  "name": "ghost-committer-marketplace",
+  "owner": {
+    "name": "Abdul Mozid Fahim"
+  },
+  "description": "A marketplace hosting the ghost-committer plugin",
+  "plugins": [
+    {
+      "name": "ghost-committer",
+      "source": "./plugins/ghost-committer",
+      "description": "Keeps git commits and PRs free of AI attribution trailers (Co-Authored-By, Generated with Claude Code, Claude-Session)"
+    }
+  ]
+}
